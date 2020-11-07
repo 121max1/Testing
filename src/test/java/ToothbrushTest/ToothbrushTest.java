@@ -1,25 +1,26 @@
-package ToothbrusTest;
+package ToothbrushTest;
 
 import Pages.MainPage;
-import Pages.ProfilePage;
 
 import Pages.SearchPage;
-import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+
 public class ToothbrushTest {
 
     private static WebDriver driver;
     public static SearchPage searchPage;
-    public  static MainPage mainPage;
+    public static MainPage mainPage;
 
     @BeforeClass
     public  static  void setup() {
         System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\user\\Downloads\\chromedriver.exe");
+                "C:\\Users\\shkodinms\\Downloads\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://www.citilink.ru/");
         mainPage = new MainPage(driver);
@@ -29,9 +30,14 @@ public class ToothbrushTest {
 
 
     @Test
-    public void ToothbrushTest()
-    {
-        searchPage.searchSmth("Зубные щетки");
-    }
+    public void ToothbrushTest() {
+        searchPage.getToothbrushesSearchPage();
+        searchPage.enterMinPriceOnSearchPage(999);
+        searchPage.enterMaxPriceOnSearchPage(1999);
+        ArrayList<Integer> prices = searchPage.getPricesOfToothbrushes();
+        for (Integer price:prices) {
+            Assert.assertEquals(1499, price,500);
+        }
 
+    }
 }

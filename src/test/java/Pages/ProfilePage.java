@@ -18,12 +18,8 @@ public class ProfilePage {
 
 
     public void enterProfilePageFromMainPage() throws InterruptedException {
-       // WebElement menu = (new WebDriverWait(driver,5))
-       //         .until(ExpectedConditions.visibilityOfElementLocated(By.className("auth-user-popup__text")));
         WebElement menu = driver.findElement(By.className("auth-user-popup__text"));
         menu.click();
-        //WebElement profilePage = (new WebDriverWait(driver,5))
-        //        .until(ExpectedConditions.elementToBeClickable(By.xpath("a[@href='https://www.citilink.ru/profile/']")));
         Thread.sleep(1000);
         WebElement profilePage = driver.findElement(By.xpath("//*[@id=\"layout\"]/header/div/div[2]/div/div[3]/div/div/div/ul/li[4]/a/span"));
         profilePage.click();
