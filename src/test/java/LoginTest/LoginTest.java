@@ -18,7 +18,7 @@ public class LoginTest {
     @BeforeClass
     public  static  void setup() {
         System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\shkodinms\\Downloads\\chromedriver.exe");
+                "C:\\Users\\user\\Downloads\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://www.citilink.ru/");
         mainPage = new MainPage(driver);

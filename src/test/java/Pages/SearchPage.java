@@ -17,42 +17,47 @@ public class SearchPage {
     }
 
     public void getToothbrushesSearchPage() {
-        WebElement beautyAndhealthPage = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".link_side-menu.link_active")));
-        beautyAndhealthPage.click();
-        WebElement toothbrushesAndAcsPage = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOfElementLocated(By.id("category_id_663")));
-        toothbrushesAndAcsPage.click();
-        WebElement toothbrushesOnlyPage = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOfElementLocated(By.id("category_id_216")));
-        toothbrushesAndAcsPage.click();
-
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("menu-item_cat_beauty"))).click();
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Зубные щетки и аксессуары"))).click();
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Зубные щетки"))).click();
     }
 
-    public void enterMinPriceOnSearchPage(int minPrice) {
+    public void enterMinPriceOnSearchPage(Integer minPrice) {
         WebElement minPriceField = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOfElementLocated(By.className("min-input_js")));
-        minPriceField.sendKeys(String.valueOf(minPrice));
-        minPriceField.submit();
+                until(ExpectedConditions.visibilityOfElementLocated(By.className("min")));
+        minPriceField.sendKeys("\b\b\b\b\b\b\b\b");
+        minPriceField.sendKeys(minPrice.toString());
     }
 
-    public void enterMaxPriceOnSearchPage(int maxPrice) {
+    public void enterMaxPriceOnSearchPage(Integer maxPrice) {
         WebElement maxPriceField = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.className("max-input_js")));
-        maxPriceField.sendKeys(String.valueOf(maxPrice));
-        maxPriceField.submit();
+        maxPriceField.sendKeys("\b\b\b\b\b\b\b\b");
+        maxPriceField.sendKeys(maxPrice.toString());
     }
 
-    public ArrayList<Integer> getPricesOfToothbrushes(){
-        ArrayList<Integer> pricesToReturn = new ArrayList<Integer>();
-        List<WebElement> prices = (new WebDriverWait(driver, 10)).
+    public List<WebElement> getToothbrushes() {
+        return (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                        By.className("subcategory-product-item__price subcategory-product-item__price_standart")));
-        for (WebElement price: prices) {
-            pricesToReturn.add(Integer.parseInt(price.getText()));
-        }
-        return  pricesToReturn;
+                        By.className("js--subcategory-product-item")));
 
-        }
     }
+
+    public void addToCart(WebElement product) {
+        product.findElement(By.className("add_to_cart")).click();
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("popup-basket__close-btn"))).click();
+    }
+
+    public void getCartPage() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("cart"))).click();
+    }
+
+
+}
+
 
