@@ -39,7 +39,8 @@ public class SearchPage {
         maxPriceField.sendKeys(maxPrice.toString());
     }
 
-    public List<WebElement> getToothbrushes() {
+    public List<WebElement> getToothbrushes() throws InterruptedException {
+        Thread.sleep(3000);
         return (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                         By.className("js--subcategory-product-item")));
@@ -57,6 +58,10 @@ public class SearchPage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.className("cart"))).click();
     }
 
+    public String getCartText() {
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("basket_storage"))).getText();
+    }
 
 }
 

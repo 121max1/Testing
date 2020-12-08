@@ -14,13 +14,11 @@ public class CartPage {
         this.driver = driver;
     }
 
-    public void clickCheckout()
-    {
+    public void clickCheckout() {
         (new WebDriverWait(driver,10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.className("next-basket-step-button__js"))).click();
     }
-    public  void getDeliveryPage()
-    {
+    public  void getDeliveryPage() {
         (new WebDriverWait(driver,10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.className("type4"))).click();
         (new WebDriverWait(driver,10)).
@@ -29,28 +27,31 @@ public class CartPage {
                 until(ExpectedConditions.visibilityOfElementLocated(By.id("delivery_save"))).click();
     }
 
-    public int getProductPrice()
-    {
+    public int getProductPrice() {
         return  Integer.parseInt((new WebDriverWait(driver,10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.className("js--order-amount-without-discount__amount-num"))).getText());
     }
-    public int getPriceWithDelivery()
-    {
+    public int getPriceWithDelivery() {
         return Integer.parseInt((new WebDriverWait(driver,10).
                 until(ExpectedConditions.visibilityOfElementLocated(By.className("js--order-amount__amount-num")))).getText());
     }
 
-    public int getDeliveryPrice()
-    {
+    public int getDeliveryPrice() {
         return Integer.parseInt((new WebDriverWait(driver,10).
                 until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//tr[./td[contains(text(), \"Доставка\")]]"))))).
                 findElement(By.className("num")).getText());
     }
 
-    public void changeAmountOfProducts(Integer amount) {
+    public void changeAmountOfProducts(Integer amount) throws InterruptedException{
         WebElement productAmount = (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.className("product_amount_control")));
         productAmount.sendKeys("\b\b\b\b\b\b");
         productAmount.sendKeys(amount.toString());
+        Thread.sleep(2000);
+    }
+
+    public void removeProductsInCart(){
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("remove_all"))).click();
     }
 }

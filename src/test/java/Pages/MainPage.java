@@ -26,8 +26,6 @@ public class MainPage
     private  WebElement loginButton;
 
     public void openForm() {
-        //WebElement explicitWait = (new WebDriverWait(driver,10))
-        //        .until(ExpectedConditions.visibilityOfElementLocated(By.id("login_form_show_js")));
         WebElement openForm = driver.findElement(By.className("auth-popup__expandable-text"));
         openForm.click();
     }
@@ -67,5 +65,15 @@ public class MainPage
          WebElement city = (new WebDriverWait(driver,10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(cityName)));
          city.click();
+    }
+
+    public void goToOldPage() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), \"Перейти на старую версию сайта\")]"))).click();
+    }
+
+    public void returnToMainPage() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("screen"))).click();
     }
 }
